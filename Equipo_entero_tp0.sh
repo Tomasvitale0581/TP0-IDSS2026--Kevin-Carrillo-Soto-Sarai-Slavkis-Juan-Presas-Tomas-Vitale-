@@ -63,29 +63,29 @@ chmod +x "$HOME/EPNro1/consolidar.sh"
 ;; 
 
 2)
-	 if [[ -d "$HOME/EPNro1/entrada" ]]; then
+	if [[ -d "$HOME/EPNro1/entrada" ]]; then
 		"$HOME/EPNro1/consolidar.sh" &
 		echo "Se ejecuto el proceso en background"
 	else
-                echo "aun no se creo el entorno (no se encuentra la carpeta entrada)"
-        fi
+        echo "aun no se creo el entorno (no se encuentra la carpeta entrada)"
+    fi
 ;;
-  
+
 3)
-        if [[ -f "$ruta_archivo" ]]; then
-                sort -nk1 "$ruta_archivo" -o "$ruta_archivo"
-                cat "$ruta_archivo" 
-        else
-                echo "Aun no se creo el entorno que contiene la carpeta salida o no hay archivos dentro"
-        fi
+    if [[ -f "$ruta_archivo" ]]; then
+            sort -nk1 "$ruta_archivo" -o "$ruta_archivo"
+            cat "$ruta_archivo" 
+    else
+            echo "Aun no se creo el entorno que contiene la carpeta salida o no hay archivos dentro"
+    fi
 ;;
 
 4)
         if [[ -f "$ruta_archivo" ]]; then
                 sort -nrk5 $ruta_archivo -o "$ruta_archivo"
 		cat "$ruta_archivo" | head -n 10
-	else
-                echo "Aun no se creo el entorno que contiene la carpeta salida o no hay archivos dentro"
+		else
+            echo "Aun no se creo el entorno que contiene la carpeta salida o no hay archivos dentro"
         fi  
 ;;
 
@@ -96,11 +96,11 @@ chmod +x "$HOME/EPNro1/consolidar.sh"
 		echo "Utilice valores numericos"
 	else 
 		if grep -q "$padron_seleccionado" "$ruta_archivo"; then
-			grep "$padron_seleccionado" "$ruta_archivo"
+			awk -v p="$padron_seleccionado" '$1 ~ p' "$ruta_archivo"
 		else
 			echo "No figura ese padron en la lista"
 		fi
-	fi	
+	fi		
 ;;
 
 6)
